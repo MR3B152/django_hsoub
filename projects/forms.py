@@ -1,24 +1,30 @@
 from django import forms
 from . import models
+from django.utils.translation import gettext as _
 
+attrs = {'class':'form-control'}
 
 class ProjectCreateForm(forms.ModelForm):
     class Meta:
         model = models.Project
         fields = ['category', 'title', 'description']
-        widget = {
-            'category': forms.Select(),
-            'title': forms.TextInput(),
-            'description': forms.Textarea()
+        labels = {
+            'category':_('Category'),
+            'title':_('Title'),
+            'desctiption':_('Description'),
         }
-
+        widgets = {
+            'category': forms.Select(attrs=attrs),
+            'title': forms.TextInput(attrs=attrs),
+            'description': forms.Textarea(attrs=attrs)
+        }
 
 class ProjectUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Project
         fields = ['category', 'title', 'status']
-        widget = {
-            'category': forms.Select(),
-            'title': forms.TextInput(),
-            'status': forms.Select()
+        widgets = {
+            'category': forms.Select(attrs=attrs),
+            'title': forms.TextInput(attrs=attrs),
+            'status': forms.Select(attrs=attrs)
         }
